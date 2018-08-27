@@ -246,8 +246,93 @@ assert even_number_of_evens([2, 3, 9, 10, 13, 7, 8]) == False, "Multiple numbers
 assert even_number_of_evens([2, 3, 9, 10, 13, 7, 8, 5, 12]) == True, "Multiple numbers, four are even"
 assert even_number_of_evens([1, 3, 9]) == False, "No even numbers"
 
-Enter equation
-Result
+Test Driven Development
+
+- What is it?
+
+A method of driving our development using tests.
+
+- What does it do?
+
+It allows us to build and refactor our code using tests.
+
+- How do you use it?
+
+We think about and write tests to drive the behaviour of an individual function. We can then use extra tests to refactor and add extra functionality.
+
+Video transcript
+
+    Start of transcript. Skip to the end.
+    We've already seen how to write tests after your program is finished to verify
+    its behaviour, and in our last unit we looked at how to write tests before you
+    write the program in order to build the specification for your program. The final
+    approach that we're going to consider, and this is one that we're going to
+    discuss through this whole lesson, is test-driven development, which means we
+    write the tests while we write the program. Test-driven development involves
+    writing a test that verifies some expected behavior, and then we write just
+    enough code to make the test pass. Even if the code doesn't look right or it's
+    not how it's going to be in its finished form, we write just enough to make the
+    test pass. We don't try to write the entire function all at once. As we
+    mentioned before, we build the function incrementally. Let's see this in practice
+    using the challenge from the last unit. We're going to solve this now using
+    Test-Driven Development. We're going to build it incrementally, and we're going
+    to use the tests to write our code. Now, we already wrote one test as an example,
+    but our function isn't very useful because any test which expects a false
+    value is going to pass. With Test-Driven Development what we're actually looking
+    for are valid tests that our function would fail. That's how we move things
+    forward. So, in this case we're looking for a test that isn't wanting a true
+    response. What kind of a test could we write? Well, how about if we sent in two
+    evens?
+    This should equal true of course. If we run it, we know what's going to happen.
+    Indeed, as we can see, we get an error there because it's expecting us to have
+    two even numbers, whereas our function just returns false. What's the
+    simplest way to make this pass without breaking our first test? Well, how about
+    this? We could write if numbers is empty then return false else return true.
+    Now, if we save and run this, all tests now pass. 
+    
+    So, what we're looking to do each time is to find tests that our program is going to fail. 
+    Remember that all we're actually interested in doing is making the tests pass each time.
+    It doesn't matter if the code looks wrong, it doesn't matter if it doesn't look pretty.
+    Just think of a test that it should fail and, if it does, make it pass in the
+    simplest way that you can. So, our function at the moment returns true for any
+    amount of numbers that's passed into it. And that's fine, it passes the first two
+    tests. What's a test that it should fail? Well, how about if we send in just
+    one even number? We'd expect this to return false. Now, we know what
+    is going to happen here because the function is very simple. It either returns
+    false if there are no numbers, or it returns true if there are any numbers at
+    all. So, our function is going to fail this test. We're at the stage now
+    where we actually need to count the number of even numbers in the list and
+    then check if that number is itself even. Later on we're going to learn about
+    how to slow down even more and make some very, very small changes, but right now,
+    let's just write the code to make this test pass. If a number is sent in then
+    let's initialize a variable to say that we have currently zero
+    evens. And now, let's write a loop that's actually going to check each number and
+    see if it's even. We can step through this using a for loop, and then we can
+    use the modulo operator to see if the remainder, when it's divided by two, is
+    zero. If it is then it's an even number so we increment the number of
+    evens and finally we return. So, this will return true
+    if the number of evens is even and it will return false if it's not.
+    Let's save that and run it and see what we get. Now, again, all tests are
+    passing. Things are looking good our function is generally working but there
+    are still more tests because we haven't tested what will happen if we send in
+    any odd numbers yet! Let's see what happens if we send in an odd number of
+    odd numbers. Again, we would expect this to be false. Let's run our
+    program. Ah! Now, that means that our program
+    was returning true when it should have been returning false. Just have a look at
+    the code for a few minutes see if you can figure it out for yourselves why the
+    code is returning true when it should be returning false. Well, as we see the
+    problem is here with our return, because if you divide 2 by 0 the remainder is
+    going to be 0 because the answer is 0! What we need to do here is add an if
+    statement to say that if the number of evens is 0 then return false, else we can
+    return our previous statement. Now, when we run this all tests
+    pass again. So now all of the tests from our challenge will pass. We've used
+    Test-Driven Development to build our function incrementally and it works! It's
+    not the prettiest, and it's maybe not written using the cleanest code, but now
+    that we know that it works we can go ahead and refactor our code with
+    confidence. In our second video that's exactly what we're going to do.
+    End of transcript. Skip to the start.
+
+
 
     
 

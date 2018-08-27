@@ -246,7 +246,7 @@ assert even_number_of_evens([2, 3, 9, 10, 13, 7, 8]) == False, "Multiple numbers
 assert even_number_of_evens([2, 3, 9, 10, 13, 7, 8, 5, 12]) == True, "Multiple numbers, four are even"
 assert even_number_of_evens([1, 3, 9]) == False, "No even numbers"
 
-Test Driven Development
+## Test Driven Development
 
 - What is it?
 
@@ -290,8 +290,7 @@ Video transcript
     this? We could write if numbers is empty then return false else return true.
     Now, if we save and run this, all tests now pass. 
     
-    So, what we're looking to do each time is to find tests that our program is going to fail. 
-    Remember that all we're actually interested in doing is making the tests pass each time.
+    So, what we're looking to do each time is to find tests that our program is going to fail. Remember that all we're actually interested in doing is making the tests pass each time.
     It doesn't matter if the code looks wrong, it doesn't matter if it doesn't look pretty.
     Just think of a test that it should fail and, if it does, make it pass in the
     simplest way that you can. So, our function at the moment returns true for any
@@ -332,7 +331,53 @@ Video transcript
     confidence. In our second video that's exactly what we're going to do.
     End of transcript. Skip to the start.
 
+## Refactoring
+ 
+- What is it?
 
+A method of driving our development using tests.
+
+
+- What does it do?
+
+It allows us to build and refactor our code using tests.
+
+
+- How do you use it?
+
+We think about and write tests to drive the behaviour of an individual function. We can then use extra tests to refactor and add extra functionality.
+
+Now that our code is working we can start to clean things up a little bit.
+Using the DRY - Don't Repeat Yourself principle, we can have a look at our code
+and see if there's anything that's repetitive or redundant. One thing that
+stands out straight away is our check for an empty list right at the beginning
+of the code. As we step through the code we can see that our check to see if
+evens equals zero should cover that, so we can take out the empty list check. If
+we're wrong, then our tests will tell us. So, let's try that. We'll save it and
+we'll run it. We see that it still passes all the tests. Another place where
+we repeat ourselves in the code is where we check to see if a number is even. We
+could extract this into a little helper function which, again, would stop us
+repeating ourselves. We can define that. We'll call the function is_even,
+which takes a number as the argument and
+returns true or false depending whether the number is even or not. Then, here, instead of
+doing a check to see if it's zero, we just check to see if it returns true or
+false. And, the same here as well. Again, if we're wrong on this
+then our tests will tell us. Let's check that and, stil,l all the tests pass.
+This is how we can start to refactor our code using the DRY principle so that
+we're not repeating ourselves and still using our tests to make sure that they
+all pass. Finally, if you're comfortable with list comprehensions in Python then
+we can often reduce functions that have loops like this down to a line or two.
+This is known as Pythonic code or idiomatic Python
+Let's clear out our entire function here and we can reduce it just to this.
+So, this is our first part of the loop that we were doing and now I return.
+Take a few moments just to have a look at it. Let's check to see whether all of
+our tests still pass and, indeed, they do. We've learned so far how to test
+before we write our program, to test after a program is written, and to use
+tests to build our code. Now that you're familiar with how to build tests, we're
+going to have a look in our next unit at building our own testing framework.
+End of transcript. Skip to the start.
+View Source Code
+     
 
     
 

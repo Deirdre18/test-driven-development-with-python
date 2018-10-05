@@ -1,15 +1,15 @@
 
     # (1) In this unit we're going to bring everything that we've learned together and we're going to build our own testing framework. So far the tests that we've written have just been simple assertions. If they fail we see an error message associated with that assertion, but we don't see the actual value that our function returned. All we got is an error message to tell us it was the wrong value. We can improve on this by wrapping our assertion in a function. 
 
-def number_of_evens(numbers):
+#def number_of_evens(numbers):
     
-    return 0
+ #   return 0
 
 
     #   (1)(a) Have a look at this, for example. We're going to define a function called "test are equal" and that takes two arguments. The actual value and the expected value. 
 
 #def test_are_equal(actual, expected):
- #   assert expected == actual, "Expected {0}, got {1}".format(expected, actual)
+ # assert expected == actual, "Expected {0}, got {1}".format(expected, actual)
    
     
     #   (2) Then we use assert to see if the expected and the actual are equal. If they're not we return an error message. But this time what we're going to do, as we did before, is put values into our error message to make it more understandable; and you remember we do that using the format function. So let's see this in practice assert expected == actual, "Expected {0}, got {1}".format(expected, actual)
@@ -31,15 +31,15 @@ def number_of_evens(numbers):
         
     # (6) For example, we could write one to see if an item is in a collection. Let's just move the window down a little bit to get a bit more space and then we're going to write a function called "test_is_in". That will pass in a collection and an item, and then we're going to assert that the item is in the collection. If it's not then the error message tells us that our collection name does not contain the item that we sent in. Again our format method takes the collection and item. So take a few minutes to look over these tests and understand how they work.         
         
-def test_is_in(collection, item):
-        assert item in collection, "{0} does not contain {1}".format(collection, item)        
+#def test_is_in(collection, item):
+ #       assert item in collection, "{0} does not contain {1}".format(collection, item)        
 
      
 #test_are_equal(number_of_evens([1,2,3,4,5]), 2)
 
 #test_not_equal(number_of_evens([1,3,5]), 0)
       
-test_is_in((6,2), 1)
+#test_is_in((6,2), 1)
           
  
      
@@ -53,4 +53,71 @@ test_is_in((6,2), 1)
     #Finally, just as we've done here, save your test methods in a Python file called byotest.py. BYO stands for "build your own". Then, when you want to perform testing on your own projects, you can import byotest.py. We're going to use this test framework in the upcoming mini project. Remember, before you create your byotest.py file, to initialize a git repository and then to add and commit your files to it as we go along. In our next unit, we'll have a look at our mini project for this section End of transcript. Skip to the start.
 
 
+#def is_even(number):
+ #   return number % 2 == 0
 
+#def even_number_of_evens(numbers):
+    
+    #evens = sum([1 for n in numbers if is_even(n)])
+    #return False if evens == 0 else is_even(evens)
+        
+#assert even_number_of_evens([]) == False, "No numbers"
+#assert even_number_of_evens([2, 4]) == True, "Two even numbers"
+#assert even_number_of_evens([2]) == False, "One even number"
+#assert even_number_of_evens([1,3,9]) == False, "Three odd numbers"
+
+#print("All tests pass!")
+
+
+
+
+
+def test_are_equal(actual, expected):
+    """
+    Test that two values are equal. Raises AssertionError if both values are
+    not equal.
+    `actual` is the actual value produced
+    `expected` is the value that was supposed to be produced
+    """
+    assert expected == actual, "Expected {0}, got {1}".format(
+        expected, actual)
+
+
+def test_not_equal(a, b):
+    """
+    Test that two values are not equal. Raises AssertionError if both values
+    are not equal.
+    `a` is the actual value produced
+    `b` is the value that was supposed to be produced
+    """
+    assert a != b, "Did not expect {0} but got {1}".format(a, b)
+
+
+def test_is_in(collection, item):
+    """
+    Check to ensure that a given collection contains a given value. Raises
+    AssertionError if `item` is not in `collection`
+    `collection` is the collection to be tested
+    `item` is the item that is being searched for
+    """
+    assert item in collection, "{0} does not contain {1}".format(
+        collection, item)
+
+
+def test_not_in(collection, item):
+    """
+    Check to ensure that a given collection does not contain a given value.
+    Raises AssertionError if the `item` is found in `collection`
+    `collection` is the collection in question
+    `item` is the thing that we want to check for
+    """
+    assert item not in collection, "{0} is not in {1}".format(
+        item, collection)
+
+
+def test_between(upper_limit, lower_limit, actual):
+    """
+    Check to ensure that a number is between two other numbers. Raises
+    AssertionError if the number is not between the other two numbers
+    """
+    assert lower_limit <= actual <= upper_limit, "{0} is not between {1} and {2}".format(actual, lower_limit, upper_limit)

@@ -4,19 +4,32 @@
 
 from byotest import *
 
+#We also have a suite of tests so we can refactor our code. The first thing we might notice in refactoring is that we have a duplicate list of coin denominations. We need to change that. We don't want to repeat ourselves, so we can add a variable called coins and give this our list of coin denominations. 
+
+coins = [100, 50, 20, 10, 5, 2, 1]
+
 # Now let's write our first test. When the amount of change that we require is zero, then we should get no coins back so we can do this by using our test_are_equal function calling our, currently non-existent, get_change function.
 
 # And we expect, where we've provide zero change, to get an empty list back. What's the easiest way of making that test work? Well, simply to return an empty list. Here's the complete code.
 
 # Let's write our function get_change that takes amount as an argument, and right now we're going to return an empty list. When we save that and we run it then we should be able to see that all of the tests pass, which indeed they do. 
 def get_change(amount):
-    if amount == 0:  
-        return []
+    
+#As we look at it too, though, we might realise that our if statements are now no longer required. The code itself is general enough to cover all of the scenarios that the if statements were previously covering, so we can remove those.    
+    
+    #if amount == 0:  
+     #   return []
    
 #How can we make this test pass? Well, again we can use an if statement in here, and the if statement - if you remember - protects the existing tests. Then, once we've done that we can return exactly the value that will make the test pass. In this case, we're expecting a list to come back of 2,1 and this will make our test pass. 
 
-    if amount in [100, 50, 20, 10, 5, 2, 1]:
-        return [amount]
+#Now we just need to go down to our if statement here and change it from the list to our variable "coins", and the same as well for our for loop.
+    
+    
+#As we look at it too, though, we might realise that our if statements are now no longer required. The code itself is general enough to cover all of the scenarios that the if statements were previously covering, so we can remove those.  
+
+    #if amount in [100, 50, 20, 10, 5, 2, 1]:
+    #if amount in coins:
+        #return [amount]
         
 #So, we're back to a situation now where our code will work for a certain amount, but not for others. Now what we need to do is test it with a different amount to force us to make the function more general. It's a well-known adage of Test-Driven Development that, as the tests become more specific, the code and the function become more general. So, add this test. This time, we're going to pass in 7 and we would expect to get back 5 and 2 now.    
 
@@ -25,9 +38,26 @@ def get_change(amount):
 #Now this small change that we're making might not seem that significant, but it shows we can individually add coins to the change that we return. The question is: how do we know which coins we need to add? Well, when we think about it we can see that if the coin is less than or equal to the amount we need to return, we should add it to the change. So, let's take those two lines out and rewrite our function. This time we're going to step through each of the coin denominations and if the coin value is less than or equal to the amount that we passed in then we're going to add that onto our change. Then finally we return the change list. So, this will get us past that hard-coded 2,1 that the function previously returned. Is it correct? Well, let's run it and see. No. We can see that what we got back was 5,2,1 where we expected to get 5,2. The function, as it stands, adds every coin less than 7 whether it is needed or not. 5,2 should have been enough, but the function carried on. We need to modify it again to keep track of how much change there is left to pay after the coins have been added. Fortunately this is  to do is deduct the amount of the coin from the amount that we sent in. This time if we try it, you'll see that all of our tests pass. In our next video we'll complete our function and refactor our code.
 
     change = []
-    for coin in [100, 50, 20, 10, 5, 2, 1]:
    
-       if coin <= amount:
+    
+    #for coin in [100, 50, 20, 10, 5, 2, 1]
+    
+    #Now we just need to go down to our if statement here and change it from the list to our variable "coins", and the same as well for our for loop.
+    
+    for coin in coins:
+        #The problem is that our function adds the 5 and the 2, but then we still have the outstanding amount of 2. The next coin is 1, which is less than the amount and so is added. We should have had the functionality to add another 2 cent coin rather than move on. Fortunately, this is a fairly trivial repair to make. 
+        
+      #if coin <= amount:
+       #    amount -= coin
+        #   change.append(coin)
+
+    #return change
+    
+    
+    #We just need to change our "if" statement for a "while".  Now, as long as the coin is less than or equal to the amount, it will carry on adding it and only when it's not will it move on or return the change. So, now we have a fully functioning program. 
+    
+        #if coin <= amount:    
+        while coin <= amount:
            amount -= coin
            change.append(coin)
 
@@ -51,9 +81,10 @@ def get_change(amount):
 # Let's save that and run it just to make sure that our tests pass. And they do! But, now let's add another test. What happens if we need change with more than one coin? What happens if it's not a nice even denomination? So let's pass this time into our get_change function the value of 3. We would then expect to have 2 and 1 coming back as change.
 
 #test_are_equal(get_change(3), [2, 1])
-test_are_equal(get_change(7), [5, 2])
 
-print ("All tests passed!")
+
+
+#print ("All tests passed!")
 
 
 #from byotest import *
@@ -93,7 +124,12 @@ print ("All tests passed!")
 
 #So, we're back to a situation now where our code will work for a certain amount, but not for others. Now what we need to do is test it with a different amount to force us to make the function more general. It's a well-known adage of Test-Driven Development that, as the tests become more specific, the code and the function become more general. So, add this test. This time, we're going to pass in 7 and we would expect to get back 5 and 2 now.
 
-test_are_equal(get_change(7), [5, 2])
+#test_are_equal(get_change(7), [5, 2])
 
-#print("All tests pass!")
+#vending-machine2.
+#In our last video, we built our function incrementally and tested to make sure that it was working, but there's one scenario that we haven't tested for yet, which is when we might need more than one of a particular denomination of coin. Let's write a test to check for this scenario. This time, we're going to pass into our get_change function the value of 9. We'd expect to get back change of 5 cents 2 cents and 2 cents. What happens, then, if we save and run our function as it is now? Well, as we can see, it fails. We expected to get 5, 2 and 2, but what we actually got was a 5 cent a 2 cent and a 1 cent. 
+
+test_are_equal(get_change(9), [5, 2, 2])
+
+print("All tests pass!")
 

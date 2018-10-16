@@ -4,28 +4,48 @@
 
 from byotest import *
 
+# vending-machine2:
 #We also have a suite of tests so we can refactor our code. The first thing we might notice in refactoring is that we have a duplicate list of coin denominations. We need to change that. We don't want to repeat ourselves, so we can add a variable called coins and give this our list of coin denominations. 
 
-coins = [100, 50, 20, 10, 5, 2, 1]
+# vending-machine2:
+#To get this test to pass we need to define the list of US coins, and we also need to add an optional argument to our get_change function. Let's go do that now. At the top here we can define a new list. We'll call it usd_coins and we'll put in the US coin denominations, which uses a quarter rather than 20 cents . 
+
+usd_coins = [100, 50, 25, 10, 5, 2, 1]
+
+#And we'll change the name of this one to eur_coins. 
+eur_coins = [100, 50, 20, 10, 5, 2, 1]
+
+
+
+#coins = [100, 50, 20, 10, 5, 2, 1]
 
 # Now let's write our first test. When the amount of change that we require is zero, then we should get no coins back so we can do this by using our test_are_equal function calling our, currently non-existent, get_change function.
 
 # And we expect, where we've provide zero change, to get an empty list back. What's the easiest way of making that test work? Well, simply to return an empty list. Here's the complete code.
 
 # Let's write our function get_change that takes amount as an argument, and right now we're going to return an empty list. When we save that and we run it then we should be able to see that all of the tests pass, which indeed they do. 
-def get_change(amount):
+
+#Vending machine 2 video:
+#Now we add our optional second argument into our get_change function. By putting the equals there it means that, if we don't supply the argument, it will default to using eur_coins. Now if we save and run our program again, we'll see that all of our tests pass including the one that has the optional second argument. So, we've completed our program built using Test-Driven Development.
+
+
+#def get_change(amount):
+def get_change(amount, coins=eur_coins):
     
-#As we look at it too, though, we might realise that our if statements are now no longer required. The code itself is general enough to cover all of the scenarios that the if statements were previously covering, so we can remove those.    
+#Vending machine 2 video:
+#As we look at it too, though, we might realise that our if statements are now no longer required. The code itself is general enough to cover all of the scenarios that the if statements were previously covering, so we can remove those. Great! We now have a fully working and refactored function.     
     
     #if amount == 0:  
      #   return []
    
 #How can we make this test pass? Well, again we can use an if statement in here, and the if statement - if you remember - protects the existing tests. Then, once we've done that we can return exactly the value that will make the test pass. In this case, we're expecting a list to come back of 2,1 and this will make our test pass. 
 
+# Vending machine 2 video:
 #Now we just need to go down to our if statement here and change it from the list to our variable "coins", and the same as well for our for loop.
     
     
-#As we look at it too, though, we might realise that our if statements are now no longer required. The code itself is general enough to cover all of the scenarios that the if statements were previously covering, so we can remove those.  
+# Vending machine 2 video:
+#As we look at it too, though, we might realise that our if statements are now no longer required. The code itself is general enough to cover all of the scenarios that the if statements were previously covering, so we can remove those. Great! We now have a fully working and refactored function. 
 
     #if amount in [100, 50, 20, 10, 5, 2, 1]:
     #if amount in coins:
@@ -45,7 +65,8 @@ def get_change(amount):
     #Now we just need to go down to our if statement here and change it from the list to our variable "coins", and the same as well for our for loop.
     
     for coin in coins:
-        #The problem is that our function adds the 5 and the 2, but then we still have the outstanding amount of 2. The next coin is 1, which is less than the amount and so is added. We should have had the functionality to add another 2 cent coin rather than move on. Fortunately, this is a fairly trivial repair to make. 
+    #vending machine 2 video:    
+    #The problem is that our function adds the 5 and the 2, but then we still have the outstanding amount of 2. The next coin is 1, which is less than the amount and so is added. We should have had the functionality to add another 2 cent coin rather than move on. Fortunately, this is a fairly trivial repair to make. 
         
       #if coin <= amount:
        #    amount -= coin
@@ -130,6 +151,13 @@ def get_change(amount):
 #In our last video, we built our function incrementally and tested to make sure that it was working, but there's one scenario that we haven't tested for yet, which is when we might need more than one of a particular denomination of coin. Let's write a test to check for this scenario. This time, we're going to pass into our get_change function the value of 9. We'd expect to get back change of 5 cents 2 cents and 2 cents. What happens, then, if we save and run our function as it is now? Well, as we can see, it fails. We expected to get 5, 2 and 2, but what we actually got was a 5 cent a 2 cent and a 1 cent. 
 
 test_are_equal(get_change(9), [5, 2, 2])
+
+#vending-machine2.
+#Let's just run it and test it to make sure that everything works...and it does. But even more - the tests that we have allow us to add new features with confidence. For instance, let's add the ability now to be able to override the coin denominations. Here's a new test. So this time into our get_change function we're going to pass the value of 35 and a second argument that currently doesn't exist. We'll say we expected to get back 25 and 10. To get this test to pass we need to define the list of US coins, and we also need to add an optional argument to our get_change function. Let's go do that now. At the top here we can define a new list. We'll call it usd_coins and we'll put in the US coin denominations, which uses a quarter rather than 20 cents . We'll change the name of this one to eur_coins. 
+
+#Now have a look at the challenges below. Change the function that we wrote so that instead of a list of coins it works with a dictionary that contains the coin denominations and the quantity of each coin available. Start with 20 of each coin. We'll give the option to override this by passing a dictionary to the function as we did with the US coins option. If a coin that would normally be used to make the change isn't available, then the program should attempt to use smaller coins to make up the change. If you can't make up the change at all with any of the coins available, then raise an error. Secondly, think how you could write a test that checks for a particular error. What kind of problems does that cause? We'll return to that in later lessons. So that concludes our Test-Driven Development unit. Well done, and don't forget to commit everything to git!
+
+test_are_equal(get_change(35, usd_coins), [25, 10])
 
 print("All tests pass!")
 
